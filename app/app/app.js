@@ -20,7 +20,7 @@ define(['backbone'], function(Backbone){
 			client_id: 'b506641d0fc2438eb7fed9471daf4565',
 			host: "https://api.instagram.com",
 			apis: {
-				popular: "v1/media/popular"
+				popular: "/v1/media/popular"
 			}
 		}
 	};
