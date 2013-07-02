@@ -19,7 +19,7 @@ define(['backbone', 'model/overviewModel', 'handlebars', 'text!template/overview
 			};
 			this.$container = this.$('#container');
 
-			this.listenTo(this.model.photos, 'reset', function(collection, options){
+			this.listenTo(this.model.medias, 'reset', function(collection, options){
 				var fragHTML = [];
 				collection.forEach(function(model){
 					fragHTML.push(model.view.render().el);

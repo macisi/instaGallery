@@ -1,6 +1,6 @@
 <figure>
 	{{#with images.low_resolution}}
-	<img src="{{url}}" alt="" width="{{width}}" height="{{height}}">
+	<img src="{{url}}" alt="" width="{{width}}" height="{{height}}" class="media">
 	{{/with}}
 </figure>
 <figcaption>

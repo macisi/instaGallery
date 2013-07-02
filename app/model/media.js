@@ -1,12 +1,12 @@
 /**
- * [the model of a photo]
+ * [the model of a media]
  */
-define(['backbone', '../view/photoView'], function(Backbone, PhotoView) {
+define(['backbone', '../view/mediaView'], function(Backbone, MediaView) {
 	
-	var Photo = Backbone.Model.extend({
+	var Media = Backbone.Model.extend({
 		initialize: function(){
 			console.log(this);
-			this.view = new PhotoView({
+			this.view = new MediaView({
 				model: this
 			});
 			this.on('change', function(model, options){
@@ -18,5 +18,5 @@ define(['backbone', '../view/photoView'], function(Backbone, PhotoView) {
 		}
 	});
 
-	return Photo;
+	return Media;
 });

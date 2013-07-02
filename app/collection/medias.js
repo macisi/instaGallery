@@ -1,10 +1,10 @@
 /**
- * [ the collection of photos]
+ * [ the collection of media]
  */
-define(['backbone', '../model/photo'], function(Backbone, Photo){
+define(['backbone', '../model/media'], function(Backbone, Media){
 
-	var Photos = Backbone.Collection.extend({
-		model: Photo,
+	var Medias = Backbone.Collection.extend({
+		model: Media,
 		initialize: function(){
 			this.on('change', function(model, options){
 				console.log(this, model, options)
@@ -19,5 +19,5 @@ define(['backbone', '../model/photo'], function(Backbone, Photo){
 		}
 	});
 
-	return Photos;
+	return Medias;
 });

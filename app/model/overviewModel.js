@@ -1,15 +1,15 @@
 /**
  * [define the overview model]
  */
-define(['backbone', '../collection/photos'], function(Backbone, Photos){
+define(['backbone', '../collection/medias'], function(Backbone, Medias){
 
 	var OverviewModel = Backbone.Model.extend({
 		initialize: function(){
-			this.photos = new Photos();
+			this.medias = new Medias();
 		},
 		loadPopular: function(){
-			this.photos.url = App.instagram.host + App.instagram.apis.popular;
-			this.photos.fetch({
+			this.medias.url = App.instagram.host + App.instagram.apis.media.popular;
+			this.medias.fetch({
 				data: {
 					client_id: App.instagram.client_id
 				},
