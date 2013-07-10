@@ -16,6 +16,16 @@ define(['backbone', '../collection/medias'], function(Backbone, Medias){
 				dataType: 'jsonp',
 				reset: reset
 			});
+		},
+		searchKeyWord: function(type, keyWord){
+			this.url = App.instagram.host + App.instagram.apis[type].search;
+			this.fetch({
+				data: {
+					q: keyWord,
+					client_id: App.instagram.client_id,
+				},
+				dataType: 'jsonp'
+			});
 		}
 	});
 

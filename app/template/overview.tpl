@@ -1,4 +1,8 @@
 <div id="container">
+	<select name="type" id="J-searchType">
+		<option value="users">用户名</option>
+		<option value="tags">标签</option>
+	</select>
 	<input type="text" id="search-field">
 	<button id="search-btn">搜索</button>
 	<div id="stage">

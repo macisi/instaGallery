@@ -9,7 +9,8 @@ define(['backbone', 'model/overviewModel', 'handlebars', 'text!template/overview
 		el: 'body',
 		events: {
 			'click #search-btn': 'search',
-			'click #load-more': "loadMore"
+			'click #load-more': 'loadMore',
+			'change #J-searchType': 'changeSearchType'
 		},
 		initialize: function(){
 			
@@ -22,10 +23,12 @@ define(['backbone', 'model/overviewModel', 'handlebars', 'text!template/overview
 			this.$stage = this.$('#stage');
 
 			this.currentKeyWord = {
+				type: "users",
 				keyWord: ""
 			};
 
-			this.search();
+			//load pics on loading
+			// this.search();
 
 			//render media items
 			this.listenTo(this.model.medias, 'reset', function(collection, options){
@@ -36,7 +39,7 @@ define(['backbone', 'model/overviewModel', 'handlebars', 'text!template/overview
 				this.$stage.empty().append(fragHTML);
 			});
 			//add the item
-			this.listenTo(this.model.medias, "add", function(model, collection, options){
+			this.listenTo(this.model.medias, 'add', function(model, collection, options){
 				this.$stage.append(model.view.render().el)
 			});
 		},
@@ -49,7 +52,7 @@ define(['backbone', 'model/overviewModel', 'handlebars', 'text!template/overview
 			if (this.currentKeyWord.keyWord === '') {
 				this.model.loadPopular(true);
 			} else {
-
+				this.model.searchKeyWord(this.currentKeyWord.type, this.currentKeyWord.keyWord);
 			}
 		},
 		loadMore: function(e){
@@ -58,8 +61,11 @@ define(['backbone', 'model/overviewModel', 'handlebars', 'text!template/overview
 			if (this.currentKeyWord.keyWord === '' && this.model.medias.length > 0) {
 				this.model.loadPopular(false);
 			} else {
-
+				this.model.searchKeyWord(this.currentKeyWord.type, this.currentKeyWord.keyWord);
 			}
+		},
+		changeSearchType: function(e){
+			this.currentKeyWord.type = e.target.value;
 		}
 	});
 
