@@ -8,7 +8,7 @@
 {{/with}}
 {{/if}}
 {{#with user}}
-<div class="owner">
+<div class="meta">
 	<img src="{{profile_picture}}" alt="{{full_name}}" class="avatar" width="64" height="64">
 	<p>{{full_name}}</p>
 </div>

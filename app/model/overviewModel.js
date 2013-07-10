@@ -7,13 +7,14 @@ define(['backbone', '../collection/medias'], function(Backbone, Medias){
 		initialize: function(){
 			this.medias = new Medias();
 		},
-		loadPopular: function(){
+		loadPopular: function(reset){
 			this.medias.url = App.instagram.host + App.instagram.apis.media.popular;
 			this.medias.fetch({
 				data: {
 					client_id: App.instagram.client_id
 				},
-				dataType: 'jsonp'
+				dataType: 'jsonp',
+				reset: reset
 			});
 		}
 	});

@@ -5,6 +5,7 @@
 </figure>
 <figcaption>
 	{{#with user}}
-	<img src="{{profile_picture}}" alt="{{full_name}}" width="32" height="32">{{full_name}}
+	<img src="{{profile_picture}}" alt="{{full_name}}" width="64" height="64">
+	<p>{{full_name}}</p>
 	{{/with}}
 </figcaption>

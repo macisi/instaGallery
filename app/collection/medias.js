@@ -10,8 +10,13 @@ define(['backbone', '../model/media'], function(Backbone, Media){
 				console.log(this, model, options)
 			});
 			this.on('sync', function(model, resp, options){
+				console.log(options.reset);
 				if (resp.meta.code === 200) {
-					this.reset(resp.data)
+					if (options.reset) {
+						this.reset(resp.data);
+					} else {
+						this.add(resp.data);
+					}
 				} else {
 					alert(resp.meta.error_message);
 				}

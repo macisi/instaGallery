@@ -1,10 +1,60 @@
+/**
+ * description: the app's style;
+ * author: macisi528@gmail.com;
+ */
 @import "normalize.css";
+@import "mixin.less";
 
 body { background-color: #333;}
 
+#stage {
+	display: -webkit-flex;
+	display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+	-webkit-flex-flow: row wrap;
+	   -moz-flex-flow: row wrap; /*firefox didn't support flex-wrap yet now*/
+    	-ms-flex-flow: row wrap;    
+    		flex-flow: row wrap;
+   	-webkit-justify-content: space-between;
+	   -moz-justify-content: space-between;
+			  -ms-flex-pack: justify;
+		-ms-justify-content: space-between;
+			justify-content: space-between;
+    .item {
+    	-webkit-flex: 0 auto;
+		   -moz-flex: 0 auto;
+		    -ms-flex: 0 auto;
+		    	flex: 0 auto;
+		height: 306px; overflow: hidden;
+		figure {}
+		figcaption {
+			background-color: rgba(255, 255, 255, .4); overflow: hidden;
+			-webkit-transition: -webkit-transform ease .375s;
+			   -moz-transition: -moz-transform ease .375s;
+				 -o-transition: -o-transform ease .375s;
+				   .transition(transform ease .375s);
+			img { float: left;}
+			p { margin: 0 0 0 68px; font-size: 1.5em; text-shadow: 0 1px 1px rgba(255, 255, 255, .8);}
+		}
+		&:hover {
+			figcaption { .translate(0, -100%);}
+		}
+    }
+}
+
+#load-more {
+	display: block; margin: 0 auto; width: 80px; color: #fff; font-weight: bold; text-shadow: 0 1px 1px rgba(0, 0, 0, .5); text-decoration: none; text-align: center;
+}
+
 #aside {
-	position: fixed; top: 0; right: -612px; width: 612px; background-color: #fff; transition: right ease 1s;
+	position: fixed; top: 0; left: 50%; padding: 2px 2px 0; width: 612px; height: 684px; background-color: #fff; transition: -webkit-transform ease .375s; .translate(-50%, -100%);
 	&.show {
-		right: 0;
+		.translate(-50%, 0);
+	}
+	.meta {
+		padding: 4px 0; height: 64px;
+		img { float: left;}
+		p { margin-left: 70px;}
 	}
 }

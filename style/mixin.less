@@ -1,0 +1,43 @@
+/**
+ * description: this is a collection of css mixins for less;
+ * author: macisi528@gmail.com
+ * date: 2013/7/10;
+ */
+.gradient(@arguments) {
+	background: -moz-linear-gradient(@arguments);
+	background: -webkit-linear-gradient(@arguments);
+	background: -o-linear-gradient(@arguments);
+	background: -ms-linear-gradient(@arguments); 
+	background: linear-gradient(@arguments);
+}
+
+.transition(@transition) {
+    -webkit-transition: @transition;
+       -moz-transition: @transition;
+         -o-transition: @transition;
+            transition: @transition;
+}
+
+// Basic transform
+.transform(@transform) {
+    -webkit-transform: @transform;
+       -moz-transform: @transform;
+        -ms-transform: @transform;
+         -o-transform: @transform;
+            transform: @transform;
+}
+
+// Rotate
+.rotate(@deg) {
+	.transform(rotate(@deg));
+}
+
+// Scale
+.scale(@ratio) {
+	.transform(scale(@ratio));
+}
+
+// Translate
+.translate(@x, @y) {
+	.transform(translate(@x, @y));
+}
