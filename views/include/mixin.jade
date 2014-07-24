@@ -1,0 +1,5 @@
+mixin profile(user)
+    section.profile
+        p.username #{user.username} - #{user.full_name}
+        img.avatar(src="#{user.profile_picture}", width="150", height="150")
+        p.bio #{user.bio}
