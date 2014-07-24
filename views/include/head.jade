@@ -1,0 +1,9 @@
+title #{title}
+link(href="/stylesheet/style.css", rel="stylesheet")
+script.
+    VG = {
+        env: 'dev', // production
+        token: '#{token}',
+        uid: '#{user.id}'
+    };
+script(src="/bower_components/requirejs/require.js", data-main="/app/app")

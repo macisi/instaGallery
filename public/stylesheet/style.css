@@ -1,0 +1,1 @@
+body{display:flex}.sidebar{flex:0 0 200px}.profile .avatar{border-radius:75px}.profile .counts a{display:block;color:#333}.list-container{display:flex;flex-wrap:wrap;justify-content:flex-start}.list-container .user-item{flex:0 0 100%}.list-container .user-item .avatar{float:left}.list-container .user-item p{margin-left:120px}

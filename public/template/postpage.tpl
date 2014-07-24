@@ -1,0 +1,1 @@
+<div id="container" class="detail-container"></div>
