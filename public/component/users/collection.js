@@ -9,14 +9,44 @@ define(['component/users/model', 'component/users/view'], function(UserModel, Us
         model: UserModel,
 
         initialize: function(){
-            this.views = [];
-            this.on('sync', function(collection){
-                collection.each(function(model){
-                    this.views.push(new UserView({
-                        model: model
-                    }));
+
+            this.on('sync', function(collection, res){
+                this.pagination = res.pagination;
+
+                if (this.pagination && this.pagination.next_cursor) {
+                    this.fetchNext();
+                }
+            });
+
+            this.on('reset', function(){
+                this.each(function(model){
+                    this.initModelView(model);
                 }, this);
-                this.trigger('view-init', this.views);
+            });
+
+            this.on('add', function(model){
+                this.add(model);
+                this.initModelView(model);
+            });
+
+            this.on('next', this.fetchNext);
+        },
+
+        initModelView: function(model){
+            this.trigger('view-add', new UserView({
+                model: model
+            }));
+        },
+
+        /**
+         * fetch next page
+         */
+        fetchNext: function(){
+            this.fetch({
+                data: {
+                    cursor: this.pagination.next_cursor
+                },
+                remove: false
             });
         }
     });

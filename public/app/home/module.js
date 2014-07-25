@@ -9,6 +9,12 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
 
         template: tpl.home,
 
+        threshold: 5,
+
+        renderCache: [],
+
+        renderCount: 0,
+
         events: {
             'change .user-search': 'searchUsers',
             'change .post-size-field': 'changeMediaSize'
@@ -25,8 +31,8 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
                 url: 'https://api.instagram.com/v1/users/search'
             }))();
 
-            this.listenTo(this.popularPosts, 'view-init', this.renderListItem);
-            this.listenTo(this.users, 'view-init', this.renderListItem);
+            this.listenTo(this.popularPosts, 'view-add', this.renderListItem.bind(this, this.popularPosts));
+            this.listenTo(this.users, 'view-add', this.renderListItem.bind(this, this.users));
 
             this.getPopularPost();
         },
@@ -57,18 +63,26 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
             }
         },
 
-        renderListItem: function(views){
-            this.currentViews = views;
-            var postEls = views.map(function(view){
-                return view.el;
-            });
-            this.$el.find('#container').empty().append(postEls);
+        renderListItem: function(list, view){
+            if (this.currentList && this.currentList !== list) {
+                this.$el.find('#container').empty();
+                this.renderCache = [];
+                this.renderCount = 0;
+            }
+            this.currentList = list;
+
+            this.renderCache.push(view.el);
+            if (this.renderCache.length >= this.threshold || list.length - this.renderCount < this.threshold) {
+                this.$el.find('#container').append(this.renderCache);
+                this.renderCount += this.renderCache.length;
+                this.renderCache = [];
+            }
         },
 
         changeMediaSize: function(e){
-            this.currentViews.forEach(function(view){
-                view.setSize && view.setSize(e.target.value);
-            });
+//            this.currentViews.forEach(function(view){
+//                view.setSize && view.setSize(e.target.value);
+//            });
         }
     });
 

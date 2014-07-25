@@ -22,7 +22,6 @@ define(['app/template'], function(tpl){
 
             this.model.fetch({
                 data: {
-                    a: 123
                 }
             });
         },

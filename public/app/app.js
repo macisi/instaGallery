@@ -25,7 +25,8 @@ require(['backbone', 'router', 'app/sidebar/module'], function (Backbone, Router
             dataType: "jsonp",
             data: {
                 access_token: VG.token
-            }
+            },
+            cache: true
         });
         if (request.data) {
             _.extend(_req.data, request.data);
@@ -37,6 +38,7 @@ require(['backbone', 'router', 'app/sidebar/module'], function (Backbone, Router
      * override model parse
      */
     Backbone.Model.prototype.parse = Backbone.Collection.prototype.parse = function(data){
+//        console.log(data);
         if (data.meta) {
             if (data.meta.code === 200) {
                 return data.data;

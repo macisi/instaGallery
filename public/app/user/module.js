@@ -9,13 +9,19 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
 
         template: tpl.user,
 
+        threshold: 20,
+
+        renderCache: [],
+
+        renderCount: 0,
+
         events: {
         },
 
         initialize: function(options){
             this.render(true);
 
-            var url, lists, config = {};
+            var url, lists;
 
             switch(options.type) {
                 case 'follows':
@@ -30,7 +36,6 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
                     default:
                     lists = PostCollection;
                     url = 'https://api.instagram.com/v1/users/' + options.uid + '/media/recent/';
-                    config.count = 100;
                     break;
             }
 
@@ -38,9 +43,9 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
                 url: url
             }))();
 
-            this.listenTo(this.lists, 'view-init', this.renderListItem);
+            this.listenTo(this.lists, 'view-add', this.renderListItem);
 
-            this.getListData(config);
+            this.getListData();
         },
 
         render: function(isNew){
@@ -48,19 +53,19 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
             isNew && $('#main').append(this.$el);
         },
 
-        getListData: function(config){
+        getListData: function(){
             this.lists.fetch({
-                reset: true,
-                data: config
+                reset: true
             });
         },
 
-        renderListItem: function(views){
-            this.currentViews = views;
-            var postEls = views.map(function(view){
-                return view.el;
-            });
-            this.$el.find('#container').empty().append(postEls);
+        renderListItem: function(view){
+            this.renderCache.push(view.el);
+            if (this.renderCache.length >= this.threshold || this.lists.length - this.renderCount < this.threshold) {
+                this.$el.find('#container').append(this.renderCache);
+                this.renderCount += this.renderCache.length;
+                this.renderCache = [];
+            }
         }
 
     });

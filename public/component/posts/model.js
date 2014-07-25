@@ -6,7 +6,8 @@ define(function(){
     'use strict';
 
     var PostModel = Backbone.Model.extend({
-
+        initialize: function(){
+        }
     });
 
     return PostModel;
