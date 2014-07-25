@@ -15,7 +15,7 @@ requirejs.config({
         handlebars: 'bower_components/handlebars/handlebars.amd.min'
     }
 });
-require(['backbone', 'router', 'app/sidebar/module'], function (Backbone, Router, SideBar) {
+require(['backbone', 'router'], function (Backbone, Router) {
 
     /**
      * rewrite backbone ajax
@@ -50,6 +50,12 @@ require(['backbone', 'router', 'app/sidebar/module'], function (Backbone, Router
         }
     };
 
+    var _remove = Backbone.View.prototype.remove;
+    Backbone.View.prototype.remove = function(){
+        this.trigger('remove');
+        _remove.call(this);
+    };
+
     window.vent = _.extend({}, Backbone.Events);
 
 
@@ -68,12 +74,6 @@ require(['backbone', 'router', 'app/sidebar/module'], function (Backbone, Router
                 pushState: true,
                 root: '/'
             });
-
-            this.initSideBar();
-        },
-
-        initSideBar: function () {
-            new SideBar();
         },
 
         linkTo: function(e){

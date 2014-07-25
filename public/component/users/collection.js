@@ -12,10 +12,7 @@ define(['component/users/model', 'component/users/view'], function(UserModel, Us
 
             this.on('sync', function(collection, res){
                 this.pagination = res.pagination;
-
-                if (this.pagination && this.pagination.next_cursor) {
-                    this.fetchNext();
-                }
+                this.trigger('pagination', res.pagination);
             });
 
             this.on('reset', function(){

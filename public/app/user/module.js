@@ -16,6 +16,7 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
         renderCount: 0,
 
         events: {
+            'click .more': 'loadMore'
         },
 
         initialize: function(options){
@@ -45,6 +46,10 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
 
             this.listenTo(this.lists, 'view-add', this.renderListItem);
 
+            this.listenTo(this.lists, 'pagination', this.updatePagination);
+
+            this.on('remove', this.reset);
+
             this.getListData();
         },
 
@@ -57,6 +62,7 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
             this.lists.fetch({
                 reset: true
             });
+            this.reset();
         },
 
         renderListItem: function(view){
@@ -66,6 +72,24 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
                 this.renderCount += this.renderCache.length;
                 this.renderCache = [];
             }
+        },
+
+        reset: function(){
+            this.renderCache = [];
+            this.renderCount = 0;
+        },
+
+        updatePagination: function(pagination){
+            if (pagination && pagination.next_url) {
+                this.$el.addClass('has-more');
+            } else {
+                this.$el.removeClass('has-more');
+            }
+        },
+
+        loadMore: function(e){
+            e.preventDefault();
+            this.lists.trigger('next');
         }
 
     });

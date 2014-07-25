@@ -9,11 +9,15 @@ define(['backbone', 'component/profile/view', 'component/profile/model'], functi
 
         el: "#sidebar",
 
-        initialize: function(){
+        initialize: function(options){
+            this.getProfile(options.uid || VG.uid);
+        },
+
+        getProfile: function(uid){
             new ProfileView({
                 el: this.$el.find('.profile'),
                 model: new ProfileModel({
-                    id: VG.uid
+                    id: uid
                 })
             });
         }

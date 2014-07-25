@@ -8,7 +8,8 @@ define(function(require){
     var modules = {
         home: require('app/home/module'),
         user: require('app/user/module'),
-        post: require('app/post/module')
+        post: require('app/post/module'),
+        sidebar: require('app/sidebar/module')
     };
 
     return modules;

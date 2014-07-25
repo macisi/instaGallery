@@ -12,10 +12,7 @@ define(['component/posts/model', 'component/posts/view'], function(PostModel, Po
 
             this.on('sync', function(collection, res){
                 this.pagination = res.pagination;
-
-                if (this.pagination && this.pagination.next_max_id) {
-                    this.fetchNext();
-                }
+                this.trigger('pagination', res.pagination);
             });
 
             this.on('reset', function(){

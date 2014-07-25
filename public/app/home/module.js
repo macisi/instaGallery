@@ -17,7 +17,8 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
 
         events: {
             'change .user-search': 'searchUsers',
-            'change .post-size-field': 'changeMediaSize'
+            'change .post-size-field': 'changeMediaSize',
+            'click .more': 'loadMore'
         },
 
         initialize: function(){
@@ -33,6 +34,8 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
 
             this.listenTo(this.popularPosts, 'view-add', this.renderListItem.bind(this, this.popularPosts));
             this.listenTo(this.users, 'view-add', this.renderListItem.bind(this, this.users));
+
+            this.on('remove', this.reset);
 
             this.getPopularPost();
         },
@@ -52,6 +55,7 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
         searchUsers: function(e){
             var value = e.target.value;
             if (value) {
+                this.$el.find('#container').empty();
                 this.users.fetch({
                     data: {
                         q: value
@@ -66,8 +70,7 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
         renderListItem: function(list, view){
             if (this.currentList && this.currentList !== list) {
                 this.$el.find('#container').empty();
-                this.renderCache = [];
-                this.renderCount = 0;
+                this.reset();
             }
             this.currentList = list;
 
@@ -83,7 +86,26 @@ define(['app/template', 'component/posts/collection', 'component/users/collectio
 //            this.currentViews.forEach(function(view){
 //                view.setSize && view.setSize(e.target.value);
 //            });
+        },
+
+        updatePagination: function(pagination){
+            if (pagination.next_url) {
+                this.$el.addClass('has-more');
+            } else {
+                this.$el.removeClass('has-more');
+            }
+        },
+
+        reset: function(){
+            this.renderCache = [];
+            this.renderCount = 0;
+        },
+
+        loadMore: function(e){
+            e.preventDefault();
+            this.currentList.trigger('next');
         }
+
     });
 
     return Home;

@@ -34,14 +34,22 @@ define(['app/modules'], function (Modules) {
                     break;
                 case 'post':
                     options = {
-                        pid: type
+                        pid: type,
+                        uid: this.lastuid
                     };
                     break;
                 case 'home':
+                    options = {
+                        uid: VG.uid
+                    };
                 default:
                     break;
             }
             this.module = new Modules[module](options);
+            if (this.lastuid !== options.uid) {
+                new Modules['sidebar'](options);
+            }
+            this.lastuid = options.uid;
         }
     });
 
